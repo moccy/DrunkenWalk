@@ -8,7 +8,6 @@ public:
 	~Grid();
 
 	
-	
 	int Height;
 	int Width;
 	char Fill;
@@ -18,7 +17,8 @@ public:
 	
 
 	void Print();
-	void DrunkardWalk();
+	void EmptyRandomPoint();
+	int* GetRandomPoint() const;
 	void FillPoint(int x, int y);
 	void EmptyPoint(int x, int y);	
 };

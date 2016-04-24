@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Grid.h"
 #include <iostream>
-#include <string>
 #include <vector>
 #include <random>
 
@@ -11,12 +10,12 @@ Grid::Grid(int width, int height, char fill, char empty)
 	Height = height;
 	Fill = fill;
 	Empty = empty;
-	for (int x = 0; x < Width; x++)
+	for (auto y = 0; y < Height; y++)
 	{
 		charVector.push_back(std::vector <char>());
-		for (int y = 0; y < Height; y++)
+		for (auto x = 0; x < Width; x++)
 		{
-			charVector[x].push_back(Fill);
+			charVector[y].push_back(Fill);
 		}
 	}
 }
@@ -25,37 +24,40 @@ Grid::Grid(int width, int height, char fill, char empty)
 Grid::~Grid()
 {
 	charVector.clear();
+	Width, Height, Fill, Empty = NULL;
 }
 
 void Grid::FillPoint(int x, int y)
 {
-	charVector[x][y] = Fill;
+	charVector[y][x] = Fill;
 }
 
 void Grid::EmptyPoint(int x, int y)
 {
-	charVector[x][y] = Empty;
+	charVector[y][x] = Empty;
+}
+
+
+int* Grid::GetRandomPoint() const
+{
+	int coords[2];
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distWidth(0, Width), distHeight(0, Height);
+	coords[0] = distWidth(gen);
+	coords[1] = distHeight(gen);
+	return coords;
 }
 
 void Grid::Print()
 {
-	for (int i = 0; i < Width; i++)
+	for (auto i = 0; i < Height; i++)
 	{
-		for (int j = 0; j < Height; j++)
+		for (auto j = 0; j < Width; j++)
 		{
 			std::cout << charVector[i][j];
 		}
 		std::cout << std::endl;
 	}
-}
-
-void Grid::DrunkardWalk()
-{
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> disWidth(0, Width);
-	int startX = gen(disWidth);
-	int startY = gen(disWidth);
-	std::cout << std::to_string(startX);
-	EmptyPoint(startX, startY);
+	std::cout << std::endl;
 }
