@@ -37,7 +37,7 @@ void Grid::EmptyPoint(int x, int y)
 	charVector[y][x] = Empty;
 }
 
-
+// Returning reference to a pointer on to stack? Wot do....
 int* Grid::GetRandomPoint() const
 {
 	int coords[2];
